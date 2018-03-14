@@ -1,0 +1,147 @@
+
+MacBook-Air-de-Heriberto:~ heriberto$ docker run --name mysql -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=111111 -e MYSQL_DATABASE=wordpress mysql
+04d436dc72aecfed0ac0e385f164c10da8952bd1a4ec37ef0c7a418d43770b00
+MacBook-Air-de-Heriberto:~ heriberto$ docker run --name wordpress -d -p 8080:80 --link mysql:mysql wordpress 
+c28ebd2e6d3093a710b799ee8bb3c5319d629ef1e645630206e802c5264c59c1
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
+c28ebd2e6d30        wordpress           "docker-entrypoint.s…"   2 seconds ago        Up 3 seconds        0.0.0.0:8080->80/tcp     wordpress
+04d436dc72ae        mysql               "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:3306->3306/tcp   mysql
+MacBook-Air-de-Heriberto:~ heriberto$ docker commit 04d436dc72ae heribertodavid/mysql_wordpress
+sha256:01b269896e257a1533310c2007e125976fb0009f8917cd4ca45c38b592f26577
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/mysql_wordpress
+The push refers to repository [docker.io/heribertodavid/mysql_wordpress]
+6f56447a27ad: Preparing 
+12ea28f10d69: Preparing 
+400836ab4664: Preparing 
+17d36ba94219: Preparing 
+d7758e0ab2b0: Preparing 
+921bf5c178ac: Waiting 
+3cf1630a511d: Waiting 
+b80c494a1fdc: Waiting 
+7b2001677ac9: Waiting 
+8b452d78b126: Waiting 
+292c1ee413d0: Waiting 
+014cf8bfcb2d: Waiting 
+denied: requested access to the resource is denied
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/mysql_wordpress
+The push refers to repository [docker.io/heribertodavid/mysql_wordpress]
+6f56447a27ad: Preparing 
+12ea28f10d69: Preparing 
+400836ab4664: Preparing 
+17d36ba94219: Preparing 
+d7758e0ab2b0: Preparing 
+921bf5c178ac: Waiting 
+3cf1630a511d: Waiting 
+b80c494a1fdc: Waiting 
+7b2001677ac9: Waiting 
+8b452d78b126: Waiting 
+292c1ee413d0: Waiting 
+014cf8bfcb2d: Waiting 
+denied: requested access to the resource is denied
+MacBook-Air-de-Heriberto:~ heriberto$ docker images
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+heribertodavid/mysql_wordpress   latest              01b269896e25        3 minutes ago       374MB
+httpd                            latest              6896e3bd0247        15 hours ago        177MB
+wordpress                        latest              9ce0dc63b7ed        8 days ago          407MB
+php                              5.6-fpm             19c8e6de8e38        8 days ago          367MB
+php                              7.0-fpm             99b3a8aba455        8 days ago          380MB
+php                              latest              dd8cf2021680        8 days ago          352MB
+postgres                         latest              6152297591eb        11 days ago         289MB
+mysql                            latest              5d4d51c57ea8        2 weeks ago         374MB
+nginx                            latest              e548f1a579cf        3 weeks ago         109MB
+debian                           9                   1b3ec9d977fb        3 weeks ago         100MB
+debian                           latest              1b3ec9d977fb        3 weeks ago         100MB
+bash                             latest              59507b30b48a        4 weeks ago         12.2MB
+ubuntu                           latest              0458a4468cbc        6 weeks ago         112MB
+lephare/apache                   latest              202acc5a122a        2 months ago        195MB
+hello-world                      latest              f2a91732366c        3 months ago        1.85kB
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/mysql_wordpress
+The push refers to repository [docker.io/heribertodavid/mysql_wordpress]
+6f56447a27ad: Preparing 
+12ea28f10d69: Preparing 
+400836ab4664: Preparing 
+17d36ba94219: Preparing 
+d7758e0ab2b0: Preparing 
+921bf5c178ac: Waiting 
+3cf1630a511d: Waiting 
+b80c494a1fdc: Waiting 
+7b2001677ac9: Waiting 
+8b452d78b126: Waiting 
+292c1ee413d0: Waiting 
+014cf8bfcb2d: Waiting 
+denied: requested access to the resource is denied
+MacBook-Air-de-Heriberto:~ heriberto$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: heribertodavid
+Password: 
+Login Succeeded
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/mysql_wordpress
+The push refers to repository [docker.io/heribertodavid/mysql_wordpress]
+6f56447a27ad: Pushed 
+12ea28f10d69: Pushed 
+400836ab4664: Pushed 
+17d36ba94219: Pushed 
+d7758e0ab2b0: Pushed 
+921bf5c178ac: Pushed 
+3cf1630a511d: Pushed 
+b80c494a1fdc: Pushed 
+7b2001677ac9: Pushed 
+8b452d78b126: Pushed 
+292c1ee413d0: Pushed 
+014cf8bfcb2d: Pushed 
+latest: digest: sha256:4f4eabddcd6a407515e811019f4d5c00efbf4ea1df99bbe77cfbe3ae31e5f5b9 size: 2828
+MacBook-Air-de-Heriberto:~ heriberto$ docker images
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+heribertodavid/mysql_wordpress   latest              01b269896e25        17 minutes ago      374MB
+httpd                            latest              6896e3bd0247        15 hours ago        177MB
+wordpress                        latest              9ce0dc63b7ed        8 days ago          407MB
+php                              5.6-fpm             19c8e6de8e38        8 days ago          367MB
+php                              7.0-fpm             99b3a8aba455        8 days ago          380MB
+php                              latest              dd8cf2021680        8 days ago          352MB
+postgres                         latest              6152297591eb        11 days ago         289MB
+mysql                            latest              5d4d51c57ea8        2 weeks ago         374MB
+nginx                            latest              e548f1a579cf        3 weeks ago         109MB
+debian                           9                   1b3ec9d977fb        3 weeks ago         100MB
+debian                           latest              1b3ec9d977fb        3 weeks ago         100MB
+bash                             latest              59507b30b48a        4 weeks ago         12.2MB
+ubuntu                           latest              0458a4468cbc        6 weeks ago         112MB
+lephare/apache                   latest              202acc5a122a        2 months ago        195MB
+hello-world                      latest              f2a91732366c        3 months ago        1.85kB
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+c28ebd2e6d30        wordpress           "docker-entrypoint.s…"   3 hours ago         Up 3 hours          0.0.0.0:8080->80/tcp     wordpress
+04d436dc72ae        mysql               "docker-entrypoint.s…"   3 hours ago         Up 3 hours          0.0.0.0:3306->3306/tcp   mysql
+MacBook-Air-de-Heriberto:~ heriberto$ docker commit c28ebd2e6d30 heribertodavid/worpress_mysql
+sha256:273e2fba622feab586e33fa9731935126defc279b966ef0ef4e53895a0bdeb89
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/worpress_mysql
+The push refers to repository [docker.io/heribertodavid/worpress_mysql]
+07b46c1c6e83: Pushed 
+ff5d3f14a349: Mounted from library/wordpress 
+5b836a654ff5: Mounted from library/wordpress 
+a05a3e47e129: Mounted from library/wordpress 
+ff351cda1f0f: Mounted from library/wordpress 
+7259b908e99d: Mounted from library/wordpress 
+b962bc6e939d: Mounted from library/wordpress 
+c1159e45f2c0: Mounted from library/wordpress 
+06eea3a6071a: Mounted from library/wordpress 
+c128fbdc7049: Mounted from library/wordpress 
+983a86954bb4: Mounted from library/wordpress 
+475ba53e3b68: Mounted from library/wordpress 
+b62ad04621bf: Mounted from library/wordpress 
+b5ae5b5b7481: Mounted from library/wordpress 
+a5a3cedf1e72: Mounted from library/wordpress 
+c1f5c17cbd1e: Mounted from library/wordpress 
+2dc758f90f4e: Mounted from library/php 
+81f69a91d59f: Mounted from library/php 
+b747d11dbfaf: Mounted from library/php 
+014cf8bfcb2d: Mounted from heribertodavid/mysql_wordpress 
+latest: digest: sha256:2f5e232085cbb4846618445212aceecb346a76b7b27bc447d27f99b8547c6b8e size: 4494
+MacBook-Air-de-Heriberto:~ heriberto$ docker run -ti -d heribertodavid/worpress_mysql
+851a8c066ae4eed23db3e18ce746b7040b60e3116dde705aca0becdc26232f11
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS              PORTS                    NAMES
+851a8c066ae4        heribertodavid/worpress_mysql   "docker-entrypoint.s…"   5 seconds ago       Up 6 seconds        80/tcp                   wizardly_morse
+c28ebd2e6d30        wordpress                       "docker-entrypoint.s…"   3 hours ago         Up 3 hours          0.0.0.0:8080->80/tcp     wordpress
+04d436dc72ae        mysql                           "docker-entrypoint.s…"   3 hours ago         Up 3 hours          0.0.0.0:3306->3306/tcp   mysql
+MacBook-Air-de-Heriberto:~ heriberto$ 

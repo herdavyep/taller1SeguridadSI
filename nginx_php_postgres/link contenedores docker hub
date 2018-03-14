@@ -1,0 +1,8 @@
+#contenedor nginx
+https://hub.docker.com/r/heribertodavid/nginx_taller1/
+
+#contenedor postgres
+https://hub.docker.com/r/heribertodavid/postgres_taller1/
+
+#contenedor php
+https://hub.docker.com/r/heribertodavid/php_taller1/

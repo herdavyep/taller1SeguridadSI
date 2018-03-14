@@ -1,0 +1,78 @@
+
+MacBook-Air-de-Heriberto:~ heriberto$ docker run --name postgres -e POSTGRES_PASSWORD=111111 -d postgres
+930ad4ce64151a4f6a668fa64bc954b5919c130dcac13a485fc2e140156cb2ae
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+930ad4ce6415        postgres            "docker-entrypoint.s…"   2 seconds ago       Up 4 seconds        5432/tcp            postgres
+MacBook-Air-de-Heriberto:~ heriberto$ docker run --name php7 --link postgres:postgres -v /Users/heriberto/Desktop/docker/wordpress:/var/www/html -v /Users/heriberto/Desktop/docker/config-php:/usr/local/etc/php -d php:7.0-fpm
+0ab124e19241b33949ce36c0e62fde3b83869174c9c54ecd2bbc8f5c743f8a70
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS               NAMES
+0ab124e19241        php:7.0-fpm         "docker-php-entrypoi…"   Less than a second ago   Up 2 seconds        9000/tcp            php7
+930ad4ce6415        postgres            "docker-entrypoint.s…"   About a minute ago       Up About a minute   5432/tcp            postgres
+MacBook-Air-de-Heriberto:~ heriberto$ docker stop 0a
+0a
+MacBook-Air-de-Heriberto:~ heriberto$ docker rm 0a
+0a
+MacBook-Air-de-Heriberto:~ heriberto$ docker run --name php7 --link postgres:postgres -v /Users/heriberto/Desktop/docker/facturascripts:/var/www/html -v /Users/heriberto/Desktop/docker/config-php:/usr/local/etc/php -d php:7.0-fpm
+50304ffac6c24866dd572e17c6810c037a2eedfce71d7a1e2b334b3bc4b12ed8
+MacBook-Air-de-Heriberto:~ heriberto$ docker run --name nginx -d -p 80:80 --link php7:php7 -v /Users/heriberto/Desktop/docker/facturascripts:/var/www/html -v /Users/heriberto/Desktop/docker/config-nginx:/etc/nginx/conf.d nginx
+1c09d224473f27ce69c6e0bcb3e9fecae357cb83e670c67397b977cf1479967b
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+1c09d224473f        nginx               "nginx -g 'daemon of…"   1 second ago        Up 3 seconds        0.0.0.0:80->80/tcp   nginx
+50304ffac6c2        php:7.0-fpm         "docker-php-entrypoi…"   56 seconds ago      Up 59 seconds       9000/tcp             php7
+930ad4ce6415        postgres            "docker-entrypoint.s…"   4 minutes ago       Up 4 minutes        5432/tcp             postgres
+
+
+ 
+MacBook-Air-de-Heriberto:~ heriberto$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+1c09d224473f        nginx               "nginx -g 'daemon of…"   10 minutes ago      Up 10 minutes       0.0.0.0:80->80/tcp   nginx
+50304ffac6c2        php:7.0-fpm         "docker-php-entrypoi…"   11 minutes ago      Up 11 minutes       9000/tcp             php7
+930ad4ce6415        postgres            "docker-entrypoint.s…"   14 minutes ago      Up 14 minutes       5432/tcp             postgres
+MacBook-Air-de-Heriberto:~ heriberto$ docker commit 1c09d224473f heribertodavid/nginx_taller1
+sha256:ab704b635a3b5193fcab1c4a5a1eaa964282de0fb08b613e8fb0021236b18759
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/nginx_taller1
+The push refers to repository [docker.io/heribertodavid/nginx_taller1]
+72db9f72de1b: Pushed 
+e89b70d28795: Mounted from library/nginx 
+832a3ae4ac84: Mounted from library/nginx 
+014cf8bfcb2d: Mounted from heribertodavid/worpress_mysql 
+latest: digest: sha256:5279ff4f66f263b7d4405ea674ce3a67ba077a861ae4e4d2087ec7d7f112d76f size: 1155
+MacBook-Air-de-Heriberto:~ heriberto$ docker commit 50304ffac6c2 heribertodavid/php_taller1
+sha256:631164c3452f854f417eef0e06b3e573b343422a0c4a36c7c196aa35f90e1377
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/php_taller1
+The push refers to repository [docker.io/heribertodavid/php_taller1]
+270bc8b1e61f: Pushed 
+87f70c63c9f8: Mounted from library/php 
+d542736479e7: Mounted from library/php 
+3ed8b5e252b9: Mounted from library/php 
+3aef8feff03d: Mounted from library/php 
+0451fa6eaf30: Mounted from library/php 
+1aa33751b437: Mounted from library/php 
+dae1ac914814: Mounted from library/php 
+d2c8319b62b1: Mounted from library/php 
+eea13297ffef: Mounted from library/php 
+ffc4c11463ee: Mounted from library/php 
+latest: digest: sha256:11223a48932bc4f6332eb50f42d28f1dbadf7c2c17c0ec53684e6c2d0a407082 size: 2622
+MacBook-Air-de-Heriberto:~ heriberto$ docker commit 930ad4ce6415 heribertodavid/postgres_taller1
+sha256:5773e085988e6f8830000d2762fe5c7c66cf4cba6c066547962f886bfe4c6c4d
+MacBook-Air-de-Heriberto:~ heriberto$ docker push heribertodavid/postgres_taller1
+The push refers to repository [docker.io/heribertodavid/postgres_taller1]
+97e4792ba9de: Pushed 
+1954c08ac400: Mounted from library/postgres 
+06658593dca0: Mounted from library/postgres 
+5d699c2426d7: Mounted from library/postgres 
+38c923058b83: Mounted from library/postgres 
+e00fbdf23b18: Mounted from library/postgres 
+71916fa0e432: Mounted from library/postgres 
+9af2d10d2abf: Mounted from library/postgres 
+f8f95dc063c0: Mounted from library/postgres 
+b98ca8e9b366: Mounted from library/postgres 
+7aa59bc8aaea: Mounted from library/postgres 
+6a8c52fb4521: Mounted from library/postgres 
+842585b33a29: Mounted from library/postgres 
+8568818b1f7f: Mounted from library/postgres 
+latest: digest: sha256:de213552eb7255e1fa0581084f4c981b21b60131a2e850f6e213907e3a77dfc3 size: 3240
+MacBook-Air-de-Heriberto:~ heriberto$ 

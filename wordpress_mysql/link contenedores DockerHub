@@ -1,0 +1,6 @@
+#contenedor con wordpress
+https://hub.docker.com/r/heribertodavid/worpress_mysql/
+
+
+#contendor con mysql
+https://hub.docker.com/r/heribertodavid/mysql_wordpress/
